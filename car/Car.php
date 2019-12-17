@@ -10,18 +10,17 @@ Class Car {
     private $keleiviai;
     private $priedai;
 
-
     public function __construct(int $keleiviuKiekis = 5)
     {
         $this->keleiviuKiekis = $keleiviuKiekis;
     }
 
-    public function vaziuoti($laikas): self {
-        echo "Automobilis važiuoja $this->greitis greičiu";
+    public function vaziuoti(float $laikas): self {
+        echo "<br>Automobilis važiuoja $this->greitis greičiu";
         $this->rida += (int) $this->greitis * $laikas;
         return $this;
     }
-    public function gautiRida(): int {
+    public function gautiRida(): float {
         return $this->rida;
     }
     public function gautiSpalva() { return $this->spalva; }
@@ -42,9 +41,9 @@ Class Car {
         return $this->keleiviuKiekis;
     }
 
-    public function setKeleiviuKiekis(int $keleiviuKiekis):self
+    public function setKeliaiviai(array $keleiviai):self
     {
-        $this->keleiviuKiekis = $keleiviuKiekis;
+        $this->keleiviuKiekis = $keleiviai;
         return $this;
     }
 
