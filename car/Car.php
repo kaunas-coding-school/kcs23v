@@ -62,4 +62,10 @@ Class Car {
         $this->priedai = $priedai;
         return $this;
     }
+
+    public function addPriedas(Priedas $priedas)
+    {
+        $this->priedai[] = $priedas;
+        return $this;
+    }
 }

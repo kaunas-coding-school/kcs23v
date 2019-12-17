@@ -122,4 +122,9 @@ class Adresas
         $this->extraInfo = $extraInfo;
         return $this;
     }
+
+    public function __toString()
+    {
+        return $this->country . ' ' . $this->city . '<br>';
+    }
 }
