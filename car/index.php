@@ -1,6 +1,5 @@
 <?php
-
-require __DIR__ . '../vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 $automobilis = new \Car\Model\Car();
 $automobilis2 = new \Car\Model\Car(3);
