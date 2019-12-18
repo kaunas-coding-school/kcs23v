@@ -7,5 +7,10 @@
             "email": "tautvydas@dulskis.eu"
         }
     ],
-    "require": {}
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Car\\": "car/"
+        }
+    }
 }

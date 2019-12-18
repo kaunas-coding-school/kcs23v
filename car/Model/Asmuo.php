@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Car;
+namespace Car\Model;
 
 class Asmuo
 {
@@ -14,8 +14,6 @@ class Asmuo
     private $kitaInformacija;
     /** @var string */
     private $vardas;
-
-    public $akiuSpalva;
 
     public function __construct(int $gmmd)
     {

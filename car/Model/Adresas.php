@@ -1,5 +1,7 @@
 <?php declare(strict_types=1);
 
+namespace Car\Model;
+
 class Adresas
 {
     /** @var string */

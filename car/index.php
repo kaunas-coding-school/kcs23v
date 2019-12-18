@@ -1,12 +1,9 @@
 <?php
 
-include 'Car.php';
-include 'Asmuo.php';
-include 'Adresas.php';
-include 'Priedas.php';
+require __DIR__ . '../vendor/autoload.php';
 
-$automobilis = new Car();
-$automobilis2 = new Car(3);
+$automobilis = new \Car\Model\Car();
+$automobilis2 = new \Car\Model\Car(3);
 
 $automobilis->spalva = 'raudona';
 echo $automobilis->gautiSpalva() . '<br>'; // raudona
@@ -21,7 +18,7 @@ echo '<br>Po antro reiso rida: ' . $automobilis->gautiRida();
 
 echo '<hr>';
 
-$vairuotojoAdresas = new Adresas();
+$vairuotojoAdresas = new \Car\Model\Adresas();
 $vairuotojoAdresas->setCountry('Lithuania');
 $vairuotojoAdresas->setCity('Kaunas');
 $vairuotojoAdresas->setStreet('Savanorių pr.');
@@ -29,10 +26,13 @@ $vairuotojoAdresas->setHouseNr('192');
 $vairuotojoAdresas->setApartmentNr('100');
 $vairuotojoAdresas->setExtraInfo('Duru kodas 1234');
 
-$vairuotojas = new Asmuo(200101);
+$vairuotojas = new \Car\Model\Asmuo(200101);
 $vairuotojas->setVardas('Jonas')
     ->setPavarde('Jonaitis')
     ->setAdresas($vairuotojoAdresas);
+
+$keleivis1 = new \Car\Asmuo(001212);
+$keleivis1->akiuSpalva = 'melyna';
 
 $adresas = $vairuotojas->getAdresas();
 echo $adresas .'<br>';
@@ -40,12 +40,12 @@ echo $adresas->getExtraInfo().'<br>';
 
 $automobilis->setVairuotojas($vairuotojas);
 
-$priekaba = (new Priedas())->setName('Priekaba')->setDescription('Labai talpi ir didelė priekaba.');
-$ratlankiai = (new Priedas())->setName('Ratlankiai')->setDescription('Labai grazus ratlankiai.');
+$priekaba = (new \Car\Model\Priedas())->setName('Priekaba')->setDescription('Labai talpi ir didelė priekaba.');
+$ratlankiai = (new \Car\Model\Priedas())->setName('Ratlankiai')->setDescription('Labai grazus ratlankiai.');
 
 $automobilis->setPriedai([$priekaba, $ratlankiai]);
 
-$spoileris = (new Priedas())->setName('Spoileris')->setDescription('Labai grazus spoileris.');
+$spoileris = (new \Car\Model\Priedas())->setName('Spoileris')->setDescription('Labai grazus spoileris.');
 $automobilis->addPriedas($spoileris);
 
 foreach ($automobilis->getPriedai() as $priedas) {
