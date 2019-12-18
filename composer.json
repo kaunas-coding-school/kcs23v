@@ -1,0 +1,11 @@
+{
+    "name": "tautiz/kcs23v",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Tautvydas Dulskis",
+            "email": "tautvydas@dulskis.eu"
+        }
+    ],
+    "require": {}
+}
