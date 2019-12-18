@@ -1,4 +1,5 @@
 <?php
+require __DIR__ . '/vendor/autoload.php';
 
 $ceu = [
     "Italy" => "Rome",
@@ -29,7 +30,8 @@ $ceu = [
  ] ;
  
  foreach($ceu as $key => $val){
-     echo "Salis $key yra sostine $value<br>";
+     echo "Salis $key yra sostine $val<br>";
  }
 
+  $asmuo = new \Car\Model\Asmuo(123456);
 ?>

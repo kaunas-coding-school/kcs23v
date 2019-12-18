@@ -1,8 +1,14 @@
 <?php
 require __DIR__ . '/../vendor/autoload.php';
 
-$automobilis = new \Car\Model\Car();
-$automobilis2 = new \Car\Model\Car(3);
+use Car\Model\Car;
+use Car\Model\Priedas;
+use Car\Model\Adresas;
+use Car\Asmuo;
+use Car\Model\Asmuo as Asmuo2;
+
+$automobilis = new Car();
+$automobilis2 = new Car(3);
 
 $automobilis->spalva = 'raudona';
 echo $automobilis->gautiSpalva() . '<br>'; // raudona
@@ -17,7 +23,7 @@ echo '<br>Po antro reiso rida: ' . $automobilis->gautiRida();
 
 echo '<hr>';
 
-$vairuotojoAdresas = new \Car\Model\Adresas();
+$vairuotojoAdresas = new Adresas();
 $vairuotojoAdresas->setCountry('Lithuania');
 $vairuotojoAdresas->setCity('Kaunas');
 $vairuotojoAdresas->setStreet('Savanorių pr.');
@@ -25,12 +31,12 @@ $vairuotojoAdresas->setHouseNr('192');
 $vairuotojoAdresas->setApartmentNr('100');
 $vairuotojoAdresas->setExtraInfo('Duru kodas 1234');
 
-$vairuotojas = new \Car\Model\Asmuo(200101);
+$vairuotojas = new Asmuo2(200101);
 $vairuotojas->setVardas('Jonas')
     ->setPavarde('Jonaitis')
     ->setAdresas($vairuotojoAdresas);
 
-$keleivis1 = new \Car\Asmuo(001212);
+$keleivis1 = new Asmuo(001212);
 $keleivis1->akiuSpalva = 'melyna';
 
 $adresas = $vairuotojas->getAdresas();
@@ -39,12 +45,12 @@ echo $adresas->getExtraInfo().'<br>';
 
 $automobilis->setVairuotojas($vairuotojas);
 
-$priekaba = (new \Car\Model\Priedas())->setName('Priekaba')->setDescription('Labai talpi ir didelė priekaba.');
-$ratlankiai = (new \Car\Model\Priedas())->setName('Ratlankiai')->setDescription('Labai grazus ratlankiai.');
+$priekaba = (new Priedas())->setName('Priekaba')->setDescription('Labai talpi ir didelė priekaba.');
+$ratlankiai = (new Priedas())->setName('Ratlankiai')->setDescription('Labai grazus ratlankiai.');
 
 $automobilis->setPriedai([$priekaba, $ratlankiai]);
 
-$spoileris = (new \Car\Model\Priedas())->setName('Spoileris')->setDescription('Labai grazus spoileris.');
+$spoileris = (new Priedas())->setName('Spoileris')->setDescription('Labai grazus spoileris.');
 $automobilis->addPriedas($spoileris);
 
 foreach ($automobilis->getPriedai() as $priedas) {
