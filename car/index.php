@@ -7,52 +7,60 @@ use Car\Model\Adresas;
 use Car\Asmuo;
 use Car\Model\Asmuo as Asmuo2;
 
-$automobilis = new Car();
-$automobilis2 = new Car(3);
+$log = new Monolog\Logger('name');
+$log->pushHandler(new Monolog\Handler\StreamHandler('app.log', Monolog\Logger::WARNING));
 
-$automobilis->spalva = 'raudona';
-echo $automobilis->gautiSpalva() . '<br>'; // raudona
+try {
+    $automobilis = new Car();
+    $automobilis2 = new Car(3);
 
-$automobilis->greitis = '50km/h';
-$automobilis->vaziuoti(1); // Automobilis važiuoja 50km/h greičiu
-echo '<br>Po pirmo reiso rida: ' . $automobilis->gautiRida();
+    $automobilis->spalva = 'raudona';
+    echo $automobilis->gautiSpalva() . '<br>'; // raudona
 
-$automobilis->greitis = '30km/h';
-$automobilis->vaziuoti(0.5); // Automobilis važiuoja 30km/h greičiu
-echo '<br>Po antro reiso rida: ' . $automobilis->gautiRida();
+    $automobilis->greitis = '50km/h';
+    $automobilis->vaziuoti(1); // Automobilis važiuoja 50km/h greičiu
+    echo '<br>Po pirmo reiso rida: ' . $automobilis->gautiRida();
 
-echo '<hr>';
+    $automobilis->greitis = '30km/h';
+    $automobilis->vaziuoti(0.5); // Automobilis važiuoja 30km/h greičiu
+    echo '<br>Po antro reiso rida: ' . $automobilis->gautiRida();
 
-$vairuotojoAdresas = new Adresas();
-$vairuotojoAdresas->setCountry('Lithuania');
-$vairuotojoAdresas->setCity('Kaunas');
-$vairuotojoAdresas->setStreet('Savanorių pr.');
-$vairuotojoAdresas->setHouseNr('192');
-$vairuotojoAdresas->setApartmentNr('100');
-$vairuotojoAdresas->setExtraInfo('Duru kodas 1234');
+    echo '<hr>';
 
-$vairuotojas = new Asmuo2(200101);
-$vairuotojas->setVardas('Jonas')
-    ->setPavarde('Jonaitis')
-    ->setAdresas($vairuotojoAdresas);
+    $vairuotojoAdresas = new Adresas();
+    $vairuotojoAdresas->setCountry('Lithuania');
+    $vairuotojoAdresas->setCity('Kaunas');
+    $vairuotojoAdresas->setStreet('Savanorių pr.');
+    $vairuotojoAdresas->setHouseNr('192');
+    $vairuotojoAdresas->setApartmentNr('100');
+    $vairuotojoAdresas->setExtraInfo('Duru kodas 1234');
 
-$keleivis1 = new Asmuo(001212);
-$keleivis1->akiuSpalva = 'melyna';
+    $vairuotojas = new Asmuo2(200101);
+    $vairuotojas->setVardas('Jonas')
+        ->setPavarde('Jonaitis')
+        ->setAdresas($vairuotojoAdresas);
 
-$adresas = $vairuotojas->getAdresas();
-echo $adresas .'<br>';
-echo $adresas->getExtraInfo().'<br>';
+    $keleivis1 = new Asmuo(001212);
+    $keleivis1->akiuSpalva = 'melyna';
 
-$automobilis->setVairuotojas($vairuotojas);
+    $adresas = $vairuotojas->getAdresas();
+    echo $adresas . '<br>';
+    echo $adresas->getExtraInfo() . '<br>';
 
-$priekaba = (new Priedas())->setName('Priekaba')->setDescription('Labai talpi ir didelė priekaba.');
-$ratlankiai = (new Priedas())->setName('Ratlankiai')->setDescription('Labai grazus ratlankiai.');
+    $automobilis->setVairuotojas($vairuotojas);
 
-$automobilis->setPriedai([$priekaba, $ratlankiai]);
+    $priekaba = (new Priedas())->setName('Priekaba')->setDescription('Labai talpi ir didelė priekaba.');
+    $ratlankiai = (new Priedas())->setName('Ratlankiai')->setDescription('Labai grazus ratlankiai.');
 
-$spoileris = (new Priedas())->setName('Spoileris')->setDescription('Labai grazus spoileris.');
-$automobilis->addPriedas($spoileris);
+    $automobilis->setPriedai([$priekaba, $ratlankiai]);
 
-foreach ($automobilis->getPriedai() as $priedas) {
-    echo $priedas. '<br>';
+    $spoileris = (new Priedas())->setName('Spoileris')->setDescription('Labai grazus spoileris.');
+    $automobilis->addPriedas($spoileris);
+
+    foreach ($automobilis->getPriedai() as $priedas) {
+        echo $priedas . '<br>';
+    }
+} catch (\Exception $e){
+    echo 'Gaila nutiko klaida';
+    $log->addWarning($e->getMessage());
 }
