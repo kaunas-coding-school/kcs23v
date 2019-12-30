@@ -8,11 +8,13 @@
         }
     ],
     "require": {
-        "monolog/monolog": "1.0.*"
+        "monolog/monolog": "1.0.*",
+        "ext-pdo": "*"
     },
     "autoload": {
         "psr-4": {
-            "Car\\": "car/"
+            "Car\\": "car/",
+            "Shop\\": "parduotuve/"
         }
     }
 }
