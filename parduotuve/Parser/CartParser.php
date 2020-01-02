@@ -2,7 +2,7 @@
 
 namespace Shop\Parser;
 
-class PageParser implements ParserInterface
+class CartParser implements ParserInterface
 {
     /**
      * @var \PDO
@@ -14,20 +14,22 @@ class PageParser implements ParserInterface
     {
         $this->conn = ($GLOBALS['container'])->get('db')->getConn();
 
+        $user = '123'; //@TODO: is Sesijos gauti vartotojo ID
+
         /** @var \PDOStatement $stmt */
-        $stmt = $this->conn->prepare('SELECT * FROM pages WHERE id = :id;');
-        $stmt->bindParam(':id', $id);
+        $stmt = $this->conn->prepare('INSERT INTO cart(user, item) VALUES (:user, :item);');
+        $stmt->bindParam(':user', $user);
+        $stmt->bindParam(':item', $id);
         $stmt->execute();
-        $this->content = $stmt->fetch();
     }
 
     public function getContent()
     {
-        return $this->content['content'];
+        return '';
     }
 
     public function getPageTitle()
     {
-        return $this->content['title'];
+        return '';
     }
 }

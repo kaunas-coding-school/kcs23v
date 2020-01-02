@@ -13,7 +13,8 @@ class MeniuGenerator
 
     public function __construct()
     {
-        $this->conn = (new DBConnector())->getConn();
+        $DBConnector = ($GLOBALS['container'])->get('db');
+        $this->conn = $DBConnector->getConn();
     }
 
     public function generateMeniu($state = 1): string

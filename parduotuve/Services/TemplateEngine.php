@@ -16,12 +16,21 @@ class TemplateEngine
         fclose($file);
     }
 
-    public function printContent(array $data): void
+    public function printContent(array $data)
     {
         foreach ($data as $key => $item) {
             $this->layout = str_replace($key, $item, $this->layout);
         }
 
        echo $this->layout;
+    }
+
+    public function getContent(array $data)
+    {
+        foreach ($data as $key => $item) {
+            $this->layout = str_replace($key, $item, $this->layout);
+        }
+
+        return $this->layout;
     }
 }

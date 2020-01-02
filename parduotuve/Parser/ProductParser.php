@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace Shop\Services;
+namespace Shop\Parser;
 
-use Shop\Parser\ParserInterface;
+use Shop\Services\TemplateEngine;
 
 class ProductParser implements ParserInterface
 {
@@ -12,18 +12,35 @@ class ProductParser implements ParserInterface
     private $conn;
     private $content;
 
-    public function vykdyti($id): void
+    public function vykdyti($id)
     {
-        $this->conn = ''; // @TODO: Gauti DB conn
+        $this->conn = ($GLOBALS['container'])->get('db')->getConn();
         $state = 1;
         $stmt = $this->conn->prepare('SELECT * FROM products WHERE id = :id AND state = :state;');
         $stmt->bindParam(':id', $id);
         $stmt->bindParam(':state', $state);
+        $stmt->execute();
         $this->content = $stmt->fetch();
     }
 
-    public function getContent(): string
+    public function getContent()
     {
-        return $this->content;
+        $templEngine = new TemplateEngine('product_layout.html');
+        $description = $this->content['description'] ?? 'Sorry no Product here :)';
+        $name = $this->content['name'];
+        $id = $this->content['id'];
+
+        $content = $templEngine->getContent([
+            '{{PROD_ID}}' => $id,
+            '{{DESCRIPTION}}' => $description,
+            '{{NAME}}' => $name,
+        ]);
+
+        return $content;
+    }
+
+    public function getPageTitle()
+    {
+        return 'Produktas: '. ($this->content['name'] ?? 'Sorry no Product here :)');
     }
 }
